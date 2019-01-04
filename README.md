@@ -1,2 +1,4 @@
 # Car_project
-A programme with GUI simulating a car. I wrote this project for passing a module "Objective programming" during my 3rd semmester at AGH University in Cracow, Poland. Written in Java using Swing library.
+---
+This project consists of a few classes all wrote by me except _GhostText_. All credit goes to *Xav* user of _Stackoverflow.com. Thank you.  
+The comments are all in polish, I can translate them on special request, if anything is not clear. _
