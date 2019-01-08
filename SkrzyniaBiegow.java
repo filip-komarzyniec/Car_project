@@ -15,7 +15,7 @@ public class SkrzyniaBiegow extends Komponent{
         this.iloscBiegow = iloscBiegow;
         this.aktualnePrzelozenie = 0;   // przełożenie na luzie to 0
     }
-    public int zmienBieg(int bieg) throws sprzeglo_exception {
+    public int zmienBieg(int bieg) throws Sprzeglo_exception {
         //try {
             if(sprzeglo.isStanSprzegla() && bieg <= this.iloscBiegow) {
                 this.aktualnyBieg = bieg;
@@ -27,7 +27,7 @@ public class SkrzyniaBiegow extends Komponent{
                 return this.aktualnyBieg;
             }
             else if(!sprzeglo.isStanSprzegla()) {
-                throw new sprzeglo_exception();
+                throw new Sprzeglo_exception();
             }   // ten wyjątek obsługiwany jest w interfejsie graficznym
         /*} catch (sprzeglo_exception i) {
             i.oCoKaman();       // wypisuje blad, ze sprzeglo niewcisniete

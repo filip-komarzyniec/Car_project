@@ -11,7 +11,7 @@ import java.awt.event.ComponentEvent;
 import java.util.Hashtable;
 
 
-public class autogui {
+public class autogui implements Observer {
 
     private JTabbedPane tabbedPane1;
     private JPanel panel1;
@@ -79,7 +79,7 @@ public class autogui {
                         JOptionPane.INFORMATION_MESSAGE);
 
                 // dodaje obserwatora
-                samochod.silnik.addObserver(textField32);
+                samochod.silnik.addObserver(autogui.this::update);
                 //System.out.println(samochod.silnik.getObservers());
                 // uaktualniam wszystkie stałe wartości w zakładce "stan samochodu"
                 textField16.setText(textField23.getText()); // max obroty
@@ -196,7 +196,7 @@ public class autogui {
                 } else {      //wszystko normalnie, silnik włączony
                     samochod.silnik.zwieksz_obroty(Float.parseFloat(textField30.getText()));
                     textField30.setText("");        // czyszczę okienko z tekstu po zwiększeniu obrotów
-                    System.out.println("obroty: "+samochod.silnik.getObroty());
+                    //System.out.println("obroty: "+samochod.silnik.getObroty());
                 }
             }
         });
@@ -252,7 +252,7 @@ public class autogui {
 
                     }
                 }
-                catch (sprzeglo_exception i) {      // kiedy nie jest wciśnięte sprzęgło
+                catch (Sprzeglo_exception i) {      // kiedy nie jest wciśnięte sprzęgło
                     i.oCoKaman();   // wypisuję błąd
                     JOptionPane.showMessageDialog(null,
                             "WCIŚNIJ SPRZĘGŁO!!!",
@@ -293,6 +293,10 @@ public class autogui {
             }
         });
 
+    }
+    // observer
+    public void update() {
+        textField32.setText(String.valueOf(samochod.silnik.getObroty2()));  //uaktualniam fluktujące obroty
     }
 
     public static void main(String[] args) {        // tworzę ramkę interfejsu

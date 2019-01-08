@@ -1,16 +1,9 @@
 package auto;
 
-import javafx.beans.InvalidationListener;
-import javafx.beans.Observable;
-import org.junit.rules.Timeout;
-
 import javax.swing.*;
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
-import java.util.Observer;
 import java.util.Random;
-import java.util.concurrent.TimeUnit;
 
 public class Silnik extends Komponent implements Runnable {
     private int max_obroty;
@@ -18,7 +11,7 @@ public class Silnik extends Komponent implements Runnable {
 
     private boolean blinker;
     private volatile float obroty2;      // to obserwuję
-    private ArrayList<JTextField> observers = new ArrayList<JTextField>();  // lista obserwatorów
+    private ArrayList<Observer> observers = new ArrayList<Observer>();  // lista obserwatorów
 
 
     // konstruktor
@@ -79,7 +72,7 @@ public class Silnik extends Komponent implements Runnable {
         return this.obroty;
     }
 
-    public ArrayList<JTextField> getObservers() {
+    public ArrayList<Observer> getObservers() {
         return observers;
     }
 
@@ -117,7 +110,7 @@ public class Silnik extends Komponent implements Runnable {
             }
             try {
                 notifyObservers();       // powiadamiam obserwatora o zmianie
-                Thread.sleep(1000);     //  zmiana obrotów co 1s
+                Thread.sleep(100);     //  zmiana obrotów co 1s
             } catch (java.lang.InterruptedException i) { System.out.println("przerwano"); }
         }
         System.out.println("wychodzę z while'a");
@@ -129,18 +122,19 @@ public class Silnik extends Komponent implements Runnable {
     }
 // observer pattern
 
-    public void addObserver(JTextField observer) {
+    public void addObserver(Observer observer) {
         observers.add(observer);
     }
-    public void removeObserver(JTextField observer){
+    public void removeObserver(Observer observer){
         observers.remove(observer);
     }
 
     public void notifyObservers(){
-        for (JTextField observer:
+        for (Observer observer:
              observers) {
-            observer.setText(String.valueOf(obroty2));     // uaktualniam zmienione obroty
-            observer.setEditable(false);
+            //observer.setText(String.valueOf(obroty2));     // uaktualniam zmienione obroty
+            //observer.setEditable(false);
+            observer.update();
         }
     }
 
